@@ -2,7 +2,7 @@
 
 ## Installation
 
-`sudo docker pull zaha/flask`
+`sudo docker pull eoger/flask-restful`
 
 ## Run
 
