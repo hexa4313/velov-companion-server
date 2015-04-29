@@ -6,4 +6,4 @@
 
 ## Run
 
-`sudo docker run -d -v ~/velov-companion-server:/src zaha/flask /scripts/launch.sh`
+`./launch.sh`
