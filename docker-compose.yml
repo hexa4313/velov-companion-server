@@ -1,16 +1,21 @@
+dbdata:
+  image: mdillon/postgis
+  command: /bin/true
+
 db:
   image: mdillon/postgis
+  volumes_from:
+   - dbdata
   environment:
     POSTGRES_DB: velov-companion
 
 api:
-  image: eoger/flask-restful
+  build: .
   environment:
     PYTHONDONTWRITEBYTECODE: true
-  command: /sbin/my_init
   links:
    - db
   volumes:
-   - .:/src
+   - .:/usr/src/app
   ports:
    - "5000:5000"
