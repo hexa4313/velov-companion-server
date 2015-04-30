@@ -1,0 +1,14 @@
+db:
+  image: mdillon/postgis
+  environment:
+    POSTGRES_DB: velov-companion
+
+api:
+  image: eoger/flask-restful
+  command: /sbin/my_init
+  links:
+   - db
+  volumes:
+   - .:/src
+  ports:
+   - "5000:5000"

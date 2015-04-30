@@ -1,9 +1,11 @@
 # velov-companion-server
 
-## Installation
 
-`sudo docker pull eoger/flask-restful`
+## Dependencies
 
-## Run
+- docker
+- docker-compose
 
-`./launch.sh`
+## Get it running
+
+Just execute `docker-compose up` in the current folder.
