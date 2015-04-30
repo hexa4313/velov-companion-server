@@ -2,6 +2,7 @@ import os
 from flask import Flask
 from flask.ext import restful
 from flask.ext.sqlalchemy import SQLAlchemy
+from model import *
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@' + os.environ['DB_PORT_5432_TCP_ADDR'] + '/velov-companion'
