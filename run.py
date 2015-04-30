@@ -5,7 +5,9 @@ from model.base import db
 from routes import blueprint
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@' + os.environ['DB_PORT_5432_TCP_ADDR'] + '/velov-companion'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@' +\
+                                        os.environ['DB_PORT_5432_TCP_ADDR'] +\
+                                        '/velov-companion'
 
 db.init_app(app)
 

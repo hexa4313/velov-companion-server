@@ -1,5 +1,6 @@
 from model.base import db
 
+
 class Station(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     
