@@ -2,6 +2,7 @@ from model.base import db
 
 
 class User(db.Model):
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
 
     last_name = db.Column(db.String(80))
@@ -11,8 +12,8 @@ class User(db.Model):
     
     performances = db.relationship('Performance', backref='user', lazy='dynamic')
 
-    def __init__(self, last_name, first_name, email, birthday):
-        self.last_name = last_name
+    def __init__(self, first_name, last_name, email, birthday):
         self.first_name = first_name
+        self.last_name = last_name
         self.email = email
         self.birthday = birthday

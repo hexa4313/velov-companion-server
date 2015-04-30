@@ -1,8 +1,11 @@
 import os
 from flask import Flask
-import model
 from model.base import db
 from routes import blueprint
+
+# Register models and routes
+import model
+import route
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@' +\

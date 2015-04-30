@@ -11,7 +11,7 @@ class Performance(db.Model):
     distance = db.Column(db.Float)
     mean_speed = db.Column(db.Float)
 
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     def __init__(self, user, departure_loc, arrival_loc, departure_time, arrival_time, distance, mean_speed):
         self.user = user
