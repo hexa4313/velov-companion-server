@@ -5,6 +5,8 @@ db:
 
 api:
   image: eoger/flask-restful
+  environment:
+    PYTHONDONTWRITEBYTECODE: true
   command: /sbin/my_init
   links:
    - db

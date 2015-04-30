@@ -8,9 +8,9 @@ class User(db.Model):
     last_name = db.Column(db.String(80))
     first_name = db.Column(db.String(80))
     email = db.Column(db.String(120), unique=True)
-    birthday = db.Column(db.String)
+    birthday = db.Column(db.DateTime)
     
-    performances = db.relationship('Performance', backref='user', lazy='dynamic')
+    performances = db.relationship('Performance', backref='user')
 
     def __init__(self, first_name, last_name, email, birthday):
         self.first_name = first_name

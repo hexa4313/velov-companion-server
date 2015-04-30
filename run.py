@@ -1,7 +1,7 @@
 import os
 from flask import Flask
 from model.base import db
-from routes import blueprint
+from route.base import blueprint
 
 # Register models and routes
 import model
