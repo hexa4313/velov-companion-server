@@ -8,7 +8,7 @@
 
 ## Get it running
 
-1. Paste your JCDecaux developer API Key in a file named `apikey` at the base of the project.
+1. Create a configuration file named `conf.env` based on `conf.env.template`.
 
 2. Execute `docker-compose up` in the root folder.
 
