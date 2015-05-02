@@ -15,4 +15,7 @@ class StationAPI(restful.Resource):
     	db.session.commit()
     	return Station.query.first()
 
+    def get(self, station_id):
+        data = request.get
+
 api.add_resource(StationAPI, "/station")
