@@ -1,11 +1,5 @@
-dbdata:
-  image: eoger/postgis:latest
-  command: /bin/true
-
 db:
   image: eoger/postgis:latest
-  volumes_from:
-   - dbdata
   env_file: conf.env
 
 api:
