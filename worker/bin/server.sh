@@ -26,9 +26,8 @@ function check_up() {
 }
 
 # Wait until the DB Server is ready
+sleep 5
 check_up "DB Server" ${DB_PORT_5432_TCP_ADDR} 5432
 
-# Launch the API Server and reload it if it crashes
-while :; do
-    python ./main.py
-done
+# Launch the jobs runner
+python ./main.py

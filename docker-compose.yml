@@ -1,21 +1,27 @@
 dbdata:
-  image: mdillon/postgis
+  image: eoger/postgis:latest
   command: /bin/true
 
 db:
-  image: mdillon/postgis
+  image: eoger/postgis:latest
   volumes_from:
    - dbdata
-  environment:
-    POSTGRES_DB: velov-companion
+  env_file: conf.env
 
 api:
-  build: .
+  build: api
+  env_file: conf.env
   environment:
     PYTHONDONTWRITEBYTECODE: true
   links:
    - db
   volumes:
-   - .:/usr/src/app
+   - ./api/:/usr/src/app
   ports:
    - "5000:5000"
+
+worker:
+  build: worker
+  env_file: conf.env
+  links:
+   - db
