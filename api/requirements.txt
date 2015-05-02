@@ -1,0 +1,6 @@
+flask
+flask-restful
+psycopg2
+Flask-SQLAlchemy
+GeoAlchemy2
+flask-bcrypt
