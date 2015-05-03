@@ -1,12 +1,10 @@
-# coding=utf-8
-
 import os
 import sys
 import json
 import urllib2
 import datetime
 
-from model import Station
+from model.station import Station
 from time import sleep
 from sqlalchemy import create_engine
 from geoalchemy2.elements import WKTElement
@@ -35,8 +33,7 @@ def load_stations():
     sys.exit("No API KEY defined. Did you create conf.env?")
 
   try:
-    r = urllib2.urlopen(API_URL.format(apiKey=apiKey))
-    data = json.loads(r.read().replace("°", ""))
+    data = json.load(urllib2.urlopen(url=API_URL.format(apiKey=apiKey), timeout=10))
   except (urllib2.URLError, urllib2.HTTPError):
     print "Could not load velov stations JSON data."
     return
