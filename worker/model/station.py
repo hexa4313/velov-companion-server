@@ -1,8 +1,7 @@
 from sqlalchemy import Column, Integer, String, Boolean, DateTime
 from geoalchemy2.types import Geometry
-from sqlalchemy.ext.declarative import declarative_base
+from base import Base
 
-Base = declarative_base()
 class Station(Base):
     __tablename__ = "station"
     id = Column(Integer, primary_key=True)
