@@ -5,7 +5,7 @@ from route.base import api
 from geoalchemy2.types import Geometry
 
 from model.base import db
-from model.station import Station, station_marshaller
+from model.station import Station
 
 parser = reqparse.RequestParser()
 parser.add_argument('position', type=Geometry)

@@ -4,6 +4,7 @@ from flask.ext import restful
 from flask.ext.restful import marshal_with
 from route.base import api
 from flask.ext.bcrypt import check_password_hash
+from datetime import date
 
 from model.base import db
 from model.user import User
@@ -20,7 +21,9 @@ class TokenAPI(restful.Resource):
         if user == None or not check_password_hash(user.password, data['password']):
             abort(401)
 
-        token = Token(user, binascii.hexlify(os.urandom(127)))
+	expiration_date = date.today + Token.duration 
+
+        token = Token(user, binascii.hexlify(os.urandom(127)), expiration_date)
 
         db.session.add(token)
         db.session.commit()

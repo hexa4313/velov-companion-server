@@ -1,5 +1,6 @@
 from model.base import db
 from flask.ext.restful import fields
+from datetime import timedelta
 
 token_marshaller = {
     'user_id': fields.Integer,
@@ -12,8 +13,12 @@ class Token(db.Model):
 
     hash = db.Column(db.String(255))
 
+    expiration_date = db.Column(db.DateTime)
+    duration = timedelta(days=1)
+
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    def __init__(self, user, hash):
+    def __init__(self, user, hash, expiration_date):
         self.user = user
         self.hash = hash
+	self.expiration_date = expiration_date

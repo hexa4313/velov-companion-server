@@ -1,12 +1,6 @@
 from model.base import db
 from geoalchemy2.types import Geometry
 
-station_marshaller = {
-    'id': fields.Integer,
-    'name': fields.String,
-    'position': fields.Geometry
-}
-
 class Station(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
