@@ -1,4 +1,11 @@
 from model.base import db
+from flask.ext.restful import fields
+
+performance_marshaller = {
+	'distance': fields.Float,
+	'arrival_time': fields.DateTime(dt_format='iso8601'),
+	'mean_speed': fields.Float
+}
 
 
 class Performance(db.Model):
