@@ -26,7 +26,7 @@ function check_up() {
 }
 
 # Wait until the DB Server is ready
-sleep 5
+sleep 7
 check_up "DB Server" ${DB_PORT_5432_TCP_ADDR} 5432
 
 # Launch the jobs runner
