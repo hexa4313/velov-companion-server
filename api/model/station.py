@@ -9,6 +9,7 @@ position_marshaller = {
 }
 
 station_marshaller = {
+    'number': fields.Integer,
     'name': fields.String,
     'address': fields.String,
     'position' : fields.Nested(position_marshaller),
@@ -23,8 +24,9 @@ station_marshaller = {
 
 
 class Station(db.Model):
-    name = db.Column(db.String(127), primary_key=True)
+    number = db.Column(db.Integer, primary_key=True)
 
+    name = db.Column(db.String(127))
     address = db.Column(db.String(255))
     position = db.Column(Geography(geometry_type='POINT', srid=4326))
     banking = db.Column(db.Boolean)
@@ -35,7 +37,8 @@ class Station(db.Model):
     available_bikes = db.Column(db.Integer)
     last_update = db.Column(db.DateTime)
 
-    def __init__(self, name, address, position, banking, bonus, status, bike_stands, available_bike_stands, available_bikes, last_update):
+    def __init__(self, number, name, address, position, banking, bonus, status, bike_stands, available_bike_stands, available_bikes, last_update):
+        self.number = number
         self.name = name
         self.address = address
         self.position = position
