@@ -9,6 +9,11 @@ user_marshaller = {
     'birthday': fields.DateTime(dt_format='iso8601')
 }
 
+user_bookmarks = db.Table('user_bookmarks',
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
+    db.Column('station_number', db.Integer, db.ForeignKey('station.number'))
+)
+
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -22,6 +27,8 @@ class User(db.Model):
     
     performances = db.relationship('Performance', backref='user')
     tokens = db.relationship('Token', backref='user')
+
+    bookmarks = db.relationship('Station', secondary=user_bookmarks, backref='users')
 
     def __init__(self, first_name, last_name, email, password, birthday):
         self.first_name = first_name
