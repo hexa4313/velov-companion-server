@@ -1,11 +1,13 @@
 from model.base import db
 from geoalchemy2.types import Geography
 from flask.ext.restful import fields
+from geoalchemy2.shape import to_shape
 
 station_marshaller = {
-    'id': fields.Integer,
     'name': fields.String,
     'address': fields.String,
+    'latitude': fields.String(attribute=lambda x: to_shape(x.position).y),
+    'longitude': fields.String(attribute=lambda x: to_shape(x.position).x),
     'banking': fields.Boolean,
     'bonus': fields.Boolean,
     'status': fields.String,
@@ -17,9 +19,8 @@ station_marshaller = {
 
 
 class Station(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(127), primary_key=True)
 
-    name = db.Column(db.String(127))
     address = db.Column(db.String(255))
     position = db.Column(Geography(geometry_type='POINT', srid=4326))
     banking = db.Column(db.Boolean)

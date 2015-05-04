@@ -3,4 +3,5 @@ flask-restful
 psycopg2
 Flask-SQLAlchemy
 GeoAlchemy2
+Shapely
 flask-bcrypt
