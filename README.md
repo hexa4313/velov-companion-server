@@ -15,3 +15,8 @@
 ## DB Admin
 
 `docker run -t -i --link velovcompanionserver_db_1:db eoger/postgis psql velov_companion -h db -U velov_companion`
+
+## Boot2Docker
+
+If you're using boot2docker and can't connect to the server, try adding a port redirection to Virtualbox:
+`VBoxManage controlvm boot2docker-vm natpf1 "guest-velov-flask,tcp,,5000,,5000"`
