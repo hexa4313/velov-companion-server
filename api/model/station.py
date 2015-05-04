@@ -3,11 +3,15 @@ from geoalchemy2.types import Geography
 from flask.ext.restful import fields
 from geoalchemy2.shape import to_shape
 
+position_marshaller = {
+    'latitude': fields.String(attribute=lambda x: to_shape(x).y),
+    'longitude': fields.String(attribute=lambda x: to_shape(x).x)
+}
+
 station_marshaller = {
     'name': fields.String,
     'address': fields.String,
-    'latitude': fields.String(attribute=lambda x: to_shape(x.position).y),
-    'longitude': fields.String(attribute=lambda x: to_shape(x.position).x),
+    'position' : fields.Nested(position_marshaller),
     'banking': fields.Boolean,
     'bonus': fields.Boolean,
     'status': fields.String,
