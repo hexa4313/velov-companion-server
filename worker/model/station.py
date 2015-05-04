@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, Boolean, DateTime
-from geoalchemy2.types import Geometry
+from geoalchemy2.types import Geography
 from base import Base
 
 class Station(Base):
@@ -8,7 +8,7 @@ class Station(Base):
 
     name = Column(String(127))
     address = Column(String(255))
-    position = Column(Geometry(geometry_type='POINT', srid=4326))
+    position = Column(Geography(geometry_type='POINT', srid=4326))
     banking = Column(Boolean)
     bonus = Column(Boolean)
     status = Column(String(10))

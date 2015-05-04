@@ -3,6 +3,7 @@ import sys
 import json
 import urllib2
 import datetime
+import logging
 
 from model.station import Station
 from time import sleep
@@ -35,11 +36,11 @@ def load_stations():
   try:
     data = json.load(urllib2.urlopen(url=API_URL.format(apiKey=apiKey), timeout=10))
   except (urllib2.URLError, urllib2.HTTPError):
-    print "Could not load velov stations JSON data."
+    logging.error("Could not load velov stations JSON data.")
     return
 
   if not len(data) > 0:
-    print "0 stations loaded, maybe the data is corrupted?"
+    logging.error("0 stations loaded, maybe the data is corrupted?")
     return
 
   session = Session()
@@ -48,4 +49,4 @@ def load_stations():
   session.commit()
   session.close()
 
-  print "%s stations loaded!" % len(data)
+  logging.info("{0} stations loaded!".format(len(data)))
