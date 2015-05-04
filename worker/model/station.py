@@ -2,11 +2,11 @@ from sqlalchemy import Column, Integer, String, Boolean, DateTime
 from geoalchemy2.types import Geography
 from base import Base
 
+
 class Station(Base):
     __tablename__ = "station"
-    id = Column(Integer, primary_key=True)
+    name = Column(String(127), primary_key=True)
 
-    name = Column(String(127))
     address = Column(String(255))
     position = Column(Geography(geometry_type='POINT', srid=4326))
     banking = Column(Boolean)
