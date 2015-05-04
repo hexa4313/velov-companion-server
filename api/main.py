@@ -9,7 +9,7 @@ import route
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://' + os.environ['USER'] + ':' +\
-                                         os.environ['PASSWORD'] + '@' +\
+                                        os.environ['PASSWORD'] + '@' +\
                                         'db/' + os.environ['SCHEMA']
 
 db.init_app(app)
@@ -19,6 +19,12 @@ with app.test_request_context():
     db.session.commit()
 
 app.register_blueprint(blueprint)
+
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
