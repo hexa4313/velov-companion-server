@@ -2,11 +2,6 @@ db:
   image: jamesbrink/postgresql:latest
   env_file: conf.env
 
-routing:
-  build: routing
-  ports:
-   - "8888:8888"
-
 api:
   build: api
   env_file: conf.env
@@ -24,9 +19,14 @@ worker:
    - db
 
 proxy:
-    build: proxy
-    env_file: conf.env
-    links:
-        - api:flask
-    ports:
-        - "8080:80"
+  build: proxy
+  env_file: conf.env
+  links:
+   - api:flask
+  ports:
+   - "8080:80"
+
+brouter:
+  build: routing
+  ports:
+   - "17777:17777"
