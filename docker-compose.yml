@@ -1,5 +1,5 @@
 db:
-  image: eoger/postgis:latest
+  image: jamesbrink/postgresql:latest
   env_file: conf.env
 
 routing:
