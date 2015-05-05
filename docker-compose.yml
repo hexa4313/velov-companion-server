@@ -11,6 +11,8 @@ api:
    - db
   volumes:
    - ./api/:/usr/src/app
+  ports:
+    - "5000:5000"
 
 worker:
   build: worker
@@ -19,9 +21,9 @@ worker:
    - db
 
 proxy:
-    build: proxy
-    env_file: conf.env
-    links:
-        - api:flask
-    ports:
-        - "8080:80"
+  build: proxy
+  env_file: conf.env
+  links:
+      - api:flask
+  ports:
+      - "8080:80"
