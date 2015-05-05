@@ -32,6 +32,6 @@ class UserAPI(restful.Resource):
         if user == None or not check_password_hash(user.password, args['password']):
             abort(401)
 
-    return user
+        return user
 
 api.add_resource(UserAPI, "/user")
