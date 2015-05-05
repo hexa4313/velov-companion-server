@@ -19,4 +19,4 @@
 ## Boot2Docker
 
 If you're using boot2docker and can't connect to the server, try adding a port redirection to Virtualbox:
-`VBoxManage controlvm boot2docker-vm natpf1 "guest-velov-flask,tcp,,5000,,5000"`
+`VBoxManage controlvm boot2docker-vm natpf1 "guest-velov-flask,tcp,,8080,,8080"`
