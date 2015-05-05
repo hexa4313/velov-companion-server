@@ -8,6 +8,7 @@ from flask.ext.bcrypt import check_password_hash
 from model.base import db
 from model.user import User, user_marshaller
 
+
 class UserAPI(restful.Resource):
 
     @marshal_with(user_marshaller)
@@ -15,7 +16,8 @@ class UserAPI(restful.Resource):
         data = request.get_json()
 
         hashed_password = generate_password_hash(data['password'])
-        user = User(data['first_name'], data['last_name'], data['email'], hashed_password, data['birthday'])
+        user = User(data['first_name'], data['last_name'],
+                    data['email'], hashed_password, data['birthday'])
         db.session.add(user)
         db.session.commit()
 
@@ -25,13 +27,15 @@ class UserAPI(restful.Resource):
     def get(self):
         parser = reqparse.RequestParser()
         parser.add_argument('email', required=True, help='email is required')
-        parser.add_argument('password', required=True, help='password is required')
+        parser.add_argument('password', required=True,
+                            help='password is required')
         args = parser.parse_args()
 
         user = User.query.filter_by(email=args['email']).first()
-        if user == None or not check_password_hash(user.password, args['password']):
-	    abort(401)
+        if user is None or\
+           not check_password_hash(user.password, args['password']):
+            abort(401)
 
-	return user
+        return user
 
 api.add_resource(UserAPI, "/user")

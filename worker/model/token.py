@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime
 from base import Base
 
+
 class Token(Base):
     __tablename__ = "token"
     id = Column(Integer, primary_key=True)

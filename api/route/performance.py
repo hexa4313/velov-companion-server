@@ -11,17 +11,19 @@ from route.base import verify_auth
 from model.user import User
 from model.performance import Performance, final_performance_marshaller
 
+
 class PerformanceAPI(restful.Resource):
 
     @marshal_with(final_performance_marshaller)
     def delete(self, performance_number):
         user_id = verify_auth()
 
-        performance = Performance.query.filter_by(id=performance_number).first()
-        if performance == None:
+        performance = Performance.query.filter_by(
+            id=performance_number).first()
+        if performance is None:
             abort(404)
-        
-	db.session.remove(performance)
+
+        db.session.remove(performance)
         db.session.commit()
 
         return performance
@@ -35,15 +37,15 @@ class PerformanceAPI(restful.Resource):
         if performance == None:
             abort(404)
 
-	performance.arrival_loc = data['arrival_loc']
-	performance.arrival_time = data['arrival_time']
+        performance.arrival_loc = data['arrival_loc']
+        performance.arrival_time = data['arrival_time']
         
-	duration = (performance.arrival_time - performance.departure_time).total_seconds()
-	#mean_speed in m/s --> performance.distance in meter
-	mean_speed = performance.distance / duration
+        duration = (performance.arrival_time - performance.departure_time).total_seconds()
+        #mean_speed in m/s --> performance.distance in meter
+        mean_speed = performance.distance / duration
 
-	db.session.remove(performance)
-	db.session.add(performance)
+        db.session.remove(performance)
+        db.session.add(performance)
         db.session.commit()
 
         return performance
@@ -57,8 +59,6 @@ class PerformanceListAPI(restful.Resource):
         performances = Performance.query.filter(Performance.users.any(id=user_id)).all()
 
         return performances
-
-#OBSOLETE !! A REFAIRE
 
 api.add_resource(PerformanceListAPI, "/performance/")
 api.add_resource(PerformanceAPI, '/performance/<performance_number>')

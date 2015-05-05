@@ -15,7 +15,8 @@ if __name__ == '__main__':
     scheduler = BlockingScheduler()
     scheduler.add_job(load_stations, 'interval', seconds=60)
     scheduler.add_job(delete_tokens, 'interval', days=1)
-    logging.info('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
+    logging.info('Press Ctrl+{0} to exit'.format(
+        'Break' if os.name == 'nt' else 'C'))
 
     try:
         scheduler.start()

@@ -12,6 +12,7 @@ from route.base import verify_auth
 from model.user import User
 from model.station import Station, station_marshaller
 
+
 class BookmarkAPI(restful.Resource):
 
     @marshal_with(station_marshaller)
@@ -19,11 +20,11 @@ class BookmarkAPI(restful.Resource):
         user_id = verify_auth()
 
         station = Station.query.filter_by(number=station_number).first()
-        if station == None:
+        if station is None:
             abort(404)
-        
+
         user = User.query.filter_by(id=user_id).first()
-        if user == None:
+        if user is None:
             abort(404)
 
         user.bookmarks.remove(station)
@@ -37,11 +38,11 @@ class BookmarkAPI(restful.Resource):
         user_id = verify_auth()
 
         station = Station.query.filter_by(number=station_number).first()
-        if station == None:
+        if station is None:
             abort(404)
-        
+
         user = User.query.filter_by(id=user_id).first()
-        if user == None:
+        if user is None:
             abort(404)
 
         user.bookmarks.append(station)
@@ -49,6 +50,7 @@ class BookmarkAPI(restful.Resource):
         db.session.commit()
 
         return user.bookmarks
+
 
 class BookmarkListAPI(restful.Resource):
 
