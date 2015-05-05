@@ -20,4 +20,9 @@ class UserAPI(restful.Resource):
 
         return user
 
+    @marshal_with(user_marshaller)
+    def get(self):
+	user = User.query.all()
+	return user
+
 api.add_resource(UserAPI, "/user")
