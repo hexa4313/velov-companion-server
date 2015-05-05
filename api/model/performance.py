@@ -2,9 +2,9 @@ from model.base import db
 from flask.ext.restful import fields
 
 performance_marshaller = {
-	'distance': fields.Float,
-	'arrival_time': fields.DateTime(dt_format='iso8601'),
-	'mean_speed': fields.Float
+    'distance': fields.Float,
+    'arrival_time': fields.DateTime(dt_format='iso8601'),
+    'mean_speed': fields.Float
 }
 
 
@@ -20,7 +20,8 @@ class Performance(db.Model):
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    def __init__(self, user, departure_loc, arrival_loc, departure_time, arrival_time, distance, mean_speed):
+    def __init__(self, user, departure_loc, arrival_loc, departure_time,
+                 arrival_time, distance, mean_speed):
         self.user = user
         self.departure_loc = departure_loc
         self.arrival_loc = arrival_loc

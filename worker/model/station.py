@@ -18,7 +18,9 @@ class Station(Base):
     available_bikes = Column(Integer)
     last_update = Column(DateTime)
 
-    def __init__(self, number, name, address, position, banking, bonus, status, bike_stands, available_bike_stands, available_bikes, last_update):
+    def __init__(self, number, name, address, position, banking, bonus, status,
+                 bike_stands, available_bike_stands, available_bikes,
+                 last_update):
         self.number = number
         self.name = name
         self.address = address

@@ -9,6 +9,7 @@ blueprint = Blueprint('velov-companion-api', __name__)
 
 api = restful.Api(blueprint, prefix="/api")
 
+
 def verify_auth():
 
     parser = reqparse.RequestParser()
@@ -18,10 +19,11 @@ def verify_auth():
     user_id, token = args['Authorization'].split(':')
 
     current_time = datetime.datetime.utcnow()
-    token = Token.query.filter(Token.user_id == user_id and 
-    	Token.hash == token and Token.expiration_date > current_time).first()
+    token = Token.query.filter(Token.user_id == user_id and
+                               Token.hash == token and
+                               Token.expiration_date > current_time).first()
 
-    if token == None:
+    if token is None:
         abort(401)
 
     return user_id
