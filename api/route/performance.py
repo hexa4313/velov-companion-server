@@ -9,7 +9,9 @@ from sqlalchemy import func
 from model.base import db
 from route.base import verify_auth
 from model.user import User
-from model.performance import Performance, final_performance_marshaller
+from model.performance import Performance
+from model.performance import final_performance_marshaller
+from model.performance import start_performance_marshaller
 
 
 class PerformanceAPI(restful.Resource):
@@ -59,6 +61,23 @@ class PerformanceListAPI(restful.Resource):
         performances = Performance.query.filter(Performance.users.any(id=user_id)).all()
 
         return performances
+
+    @marshal_with(start_performance_marshaller)
+    def post(self):
+        user_id = verify_auth()
+        user = User.query.filter_by(id=user_id).first()
+        if user == None:
+            abort(404)
+
+        data = request.get_json()
+
+        departure_station = data['departure_station']
+        departure_time = datetime.datetime.utcnow()
+        distance = data['distance']
+
+        performance = Performance(user, departure_station, departure_time, distance) 
+
+        return performance
 
 api.add_resource(PerformanceListAPI, "/performance/")
 api.add_resource(PerformanceAPI, '/performance/<performance_number>')
