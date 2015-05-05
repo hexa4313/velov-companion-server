@@ -1,5 +1,6 @@
 
-import binascii, os
+import binascii
+import os
 import datetime
 from flask import request, abort
 from flask.ext import restful
@@ -20,8 +21,8 @@ class TokenAPI(restful.Resource):
 
         user = User.query.filter_by(email=data['email']).first()
 
-        if user is None
-        or not check_password_hash(user.password, data['password']):
+        if user is None or\
+           not check_password_hash(user.password, data['password']):
             abort(401)
 
         current_time = datetime.datetime.utcnow()

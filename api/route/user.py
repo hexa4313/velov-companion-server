@@ -32,8 +32,8 @@ class UserAPI(restful.Resource):
         args = parser.parse_args()
 
         user = User.query.filter_by(email=args['email']).first()
-        if user is None
-        or not check_password_hash(user.password, args['password']):
+        if user is None or\
+           not check_password_hash(user.password, args['password']):
             abort(401)
 
         return user
