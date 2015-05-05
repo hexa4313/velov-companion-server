@@ -13,7 +13,7 @@ app.get('/api/route', function(req, res) {
     to_lon + ' ' + to_lat + ' profiles/safety.brf',
     function (error, stdout, stderr) {
     
-    res.send(stdout)
+    res.send("stdout : " + stdout + " | stderr : " + stderr)
   });
 
 });
