@@ -6,6 +6,7 @@ from flask.ext.bcrypt import generate_password_hash
 from flask.ext.bcrypt import check_password_hash
 
 from model.base import db
+from route.base import verify_auth
 from model.user import User, user_marshaller
 
 
@@ -24,16 +25,9 @@ class UserAPI(restful.Resource):
 
     @marshal_with(user_marshaller)
     def get(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('email', required=True, help='email is required')
-        parser.add_argument('password', required=True,
-                            help='password is required')
-        args = parser.parse_args()
+        user_id = verify_auth()
 
-        user = User.query.filter_by(email=args['email']).first()
-        if user is None or\
-           not check_password_hash(user.password, args['password']):
-            abort(401)
+        user = User.query.filter_by(id=user_id).first()
 
         return user
 
