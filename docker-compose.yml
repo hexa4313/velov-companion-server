@@ -2,11 +2,6 @@ db:
   image: jamesbrink/postgresql:latest
   env_file: conf.env
 
-routing:
-  build: routing
-  ports:
-   - "8888:8888"
-
 api:
   build: api
   env_file: conf.env
