@@ -28,4 +28,5 @@ proxy:
    - api:flask
    - routing:brouter
   ports:
-   - "8080:80"
+   - "80:80"
+   
