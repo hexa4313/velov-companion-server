@@ -30,8 +30,8 @@ class UserAPI(restful.Resource):
 
         user = User.query.filter_by(email=args['email']).first()
         if user == None or not check_password_hash(user.password, args['password']):
-	    abort(401)
+            abort(401)
 
-	return user
+    return user
 
 api.add_resource(UserAPI, "/user")
