@@ -16,8 +16,7 @@ class UserAPI(restful.Resource):
         data = request.get_json()
 
         hashed_password = generate_password_hash(data['password'])
-        user = User(data['first_name'], data['last_name'],
-                    data['email'], hashed_password, data['birthday'])
+        user = User(data['email'], hashed_password)
         db.session.add(user)
         db.session.commit()
 
