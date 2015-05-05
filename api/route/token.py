@@ -1,10 +1,5 @@
-
-<<<<<<< HEAD
-import binascii, os
-=======
 import binascii
 import os
->>>>>>> routing
 import datetime
 from flask import request, abort
 from flask.ext import restful
