@@ -22,7 +22,10 @@ def json_to_station(data):
   lon = data['position']['lng']
   lat = data['position']['lat']
   pos = WKTElement('POINT({0} {1})'.format(lon, lat), srid=4326)
-  last_update = datetime.datetime.fromtimestamp(data['last_update'] / 1e3)
+  if data['last_update']:
+    last_update = datetime.datetime.fromtimestamp(data['last_update'] / 1e3)
+  else:
+    last_update = datetime.datetime.today()
   return Station(data['number'], data['name'], data['address'], pos, data['banking'],
                  data['bonus'], data['status'], data['bike_stands'],
                  data['available_bike_stands'], data['available_bikes'], last_update)
