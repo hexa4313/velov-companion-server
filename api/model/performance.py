@@ -2,6 +2,7 @@ from model.base import db
 from flask.ext.restful import fields
 
 start_performance_marshaller = {
+    'id': fields.Integer,
     'departure_loc': fields.String,
     'departure_time': fields.DateTime(dt_format='iso8601'),
     'distance': fields.Float

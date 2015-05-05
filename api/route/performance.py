@@ -40,7 +40,7 @@ class PerformanceAPI(restful.Resource):
             abort(404)
 
         performance.arrival_loc = data['arrival_loc']
-        performance.arrival_time = data['arrival_time']
+        performance.arrival_time = datetime.datetime.utcnow()
         
         duration = (performance.arrival_time - performance.departure_time).total_seconds()
         #mean_speed in m/s --> performance.distance in meter
