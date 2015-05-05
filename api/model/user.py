@@ -10,9 +10,11 @@ user_marshaller = {
 }
 
 user_bookmarks = db.Table('user_bookmarks',
-    db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
-    db.Column('station_number', db.Integer, db.ForeignKey('station.number'))
-)
+                          db.Column('user_id', db.Integer,
+                                    db.ForeignKey('users.id')),
+                          db.Column('station_number', db.Integer,
+                                    db.ForeignKey('station.number'))
+                          )
 
 
 class User(db.Model):
@@ -24,11 +26,12 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True)
     password = db.Column(db.String(128))
     birthday = db.Column(db.DateTime)
-    
+
     performances = db.relationship('Performance', backref='user')
     tokens = db.relationship('Token', backref='user')
 
-    bookmarks = db.relationship('Station', secondary=user_bookmarks, backref='users')
+    bookmarks = db.relationship('Station', secondary=user_bookmarks,
+                                backref='users')
 
     def __init__(self, first_name, last_name, email, password, birthday):
         self.first_name = first_name

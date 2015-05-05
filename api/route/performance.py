@@ -12,27 +12,31 @@ from route.base import verify_auth
 from model.user import User
 from model.performance import Performance, performance_marshaller
 
+
 class PerformanceAPI(restful.Resource):
 
     @marshal_with(performance_marshaller)
     def delete(self, performance_number):
         user_id = verify_auth()
 
-        performance = Performance.query.filter_by(id=performance_number).first()
-        if performance == None:
+        performance = Performance.query.filter_by(
+            id=performance_number).first()
+        if performance is None:
             abort(404)
-        
-	db.session.remove(performance)
+
+        db.session.remove(performance)
         db.session.commit()
 
         return performance
+
 
 class PerformanceListAPI(restful.Resource):
 
     @marshal_with(performance_marshaller)
     def get(self):
         user_id = verify_auth()
-        performances = Performance.query.filter(Performance.users.any(id=user_id)).all()
+        performances = Performance.query.filter(
+            Performance.users.any(id=user_id)).all()
 
         return performances
 
@@ -41,9 +45,12 @@ class PerformanceListAPI(restful.Resource):
         user_id = verify_auth()
         data = request.get_json()
 
-        performance = Performance(user_id, data['departure_loc'], data['arrival_loc'], data['departure_time'], data['arrival_time'], data['distance'], data['mean_speed'])
-        
-	db.session.add(performance)
+        performance = Performance(user_id, data['departure_loc'],
+                                  data['arrival_loc'], data['departure_time'],
+                                  data['arrival_time'], data['distance'],
+                                  data['mean_speed'])
+
+        db.session.add(performance)
         db.session.commit()
 
         return performance
