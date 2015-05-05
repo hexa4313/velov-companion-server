@@ -1,6 +1,13 @@
 # Configuration file
 conf.env
 
+# node.js
+npm-debug.log
+node_modules
+
+# Segments files
+*.rd5
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
