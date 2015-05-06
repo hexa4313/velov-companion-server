@@ -49,7 +49,7 @@ def load_stations():
             )
     except (urllib2.URLError, urllib2.HTTPError):
         logging.error("Could not load velov stations JSON data.")
-        return
+        raise
 
     if not len(data) > 0:
         logging.error("0 stations loaded, maybe the data is corrupted?")
