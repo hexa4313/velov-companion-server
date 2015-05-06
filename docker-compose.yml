@@ -5,12 +5,13 @@ db:
 api:
   build: api
   env_file: conf.env
-  environment:
-    PYTHONDONTWRITEBYTECODE: true
   links:
    - db
+   - routing:brouter
   volumes:
-   - ./api/:/usr/src/app
+   - ./api/app:/home/docker/code/app
+  ports:
+   - "80:80"
 
 worker:
   build: worker
@@ -20,13 +21,3 @@ worker:
 
 routing:
   build: routing
-
-proxy:
-  build: proxy
-  env_file: conf.env
-  links:
-   - api:flask
-   - routing:brouter
-  ports:
-   - "80:80"
-   

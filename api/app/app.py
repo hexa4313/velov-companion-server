@@ -8,6 +8,7 @@ import model
 import route
 
 app = Flask(__name__)
+# app.config['PROPAGATE_EXCEPTIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://' +\
                                         os.environ['USER'] + ':' +\
                                         os.environ['PASSWORD'] + '@' +\
@@ -20,6 +21,3 @@ with app.test_request_context():
     db.session.commit()
 
 app.register_blueprint(blueprint)
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)

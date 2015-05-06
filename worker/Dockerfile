@@ -3,4 +3,4 @@ MAINTAINER Edouard Oger edouard.oger@gmail.com
 
 EXPOSE 5000
 
-CMD [ "./bin/server.sh" ]
+CMD sleep 10 && python main.py
