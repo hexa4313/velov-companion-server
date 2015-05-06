@@ -28,4 +28,4 @@ COPY . /home/docker/code/
 
 EXPOSE 80
 
-CMD /usr/bin/supervisord -c /home/docker/code/supervisord.conf
+CMD ./bin/server.sh

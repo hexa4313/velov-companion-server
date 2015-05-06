@@ -1,11 +1,12 @@
 import binascii
 import os
 import datetime
-from flask import request, abort
+from flask import request
 from flask.ext import restful
 from flask.ext.restful import marshal_with
 from route.base import api
 from flask.ext.bcrypt import check_password_hash
+from werkzeug.exceptions import Unauthorized
 
 from model.base import db
 from model.user import User
@@ -22,7 +23,7 @@ class TokenAPI(restful.Resource):
 
         if user is None or\
            not check_password_hash(user.password, data['password']):
-            abort(401)
+            raise Unauthorized
 
         current_time = datetime.datetime.utcnow()
         expiration_date = current_time + datetime.timedelta(weeks=6)

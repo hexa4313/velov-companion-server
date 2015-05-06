@@ -1,5 +1,6 @@
 from flask.ext.sqlalchemy import get_debug_queries
-from flask import request, abort
+from flask import request
+from werkzeug.exceptions import NotFound
 from flask.ext import restful
 from flask.ext.restful import marshal_with
 from route.base import api
@@ -21,11 +22,11 @@ class BookmarkAPI(restful.Resource):
 
         station = Station.query.filter_by(number=station_number).first()
         if station is None:
-            abort(404)
+            raise NotFound()
 
         user = User.query.filter_by(id=user_id).first()
         if user is None:
-            abort(404)
+            raise NotFound()
 
         user.bookmarks.remove(station)
 
@@ -39,11 +40,11 @@ class BookmarkAPI(restful.Resource):
 
         station = Station.query.filter_by(number=station_number).first()
         if station is None:
-            abort(404)
+            raise NotFound()
 
         user = User.query.filter_by(id=user_id).first()
         if user is None:
-            abort(404)
+            raise NotFound()
 
         user.bookmarks.append(station)
 

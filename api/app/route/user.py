@@ -1,4 +1,4 @@
-from flask import request, abort
+from flask import request
 from flask.ext import restful
 from flask.ext.restful import marshal_with, reqparse
 from route.base import api

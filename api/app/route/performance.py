@@ -1,5 +1,6 @@
 from flask.ext.sqlalchemy import get_debug_queries
-from flask import request, abort
+from flask import request
+from werkzeug.exceptions import NotFound
 from flask.ext import restful
 from flask.ext.restful import marshal_with
 from route.base import api
@@ -23,7 +24,7 @@ class PerformanceAPI(restful.Resource):
         performance = Performance.query.filter_by(
             id=performance_number).first()
         if performance is None:
-            abort(404)
+            raise NotFound()
 
         db.session.remove(performance)
         db.session.commit()
@@ -35,15 +36,17 @@ class PerformanceAPI(restful.Resource):
         user_id = verify_auth()
         data = request.get_json()
 
-        performance = Performance.query.filter_by(id=performance_number).first()
-        if performance == None:
-            abort(404)
+        performance = Performance.query.filter_by(
+            id=performance_number).first()
+        if performance is None:
+            raise NotFound()
 
         performance.arrival_loc = data['arrival_loc']
         performance.arrival_time = datetime.datetime.utcnow()
-        
-        duration = (performance.arrival_time - performance.departure_time).total_seconds()
-        #mean_speed in m/s --> performance.distance in meter
+
+        duration = (performance.arrival_time - performance.departure_time
+                    ).total_seconds()
+        # mean_speed in m/s --> performance.distance in meter
         mean_speed = performance.distance / duration
 
         db.session.remove(performance)
@@ -58,7 +61,8 @@ class PerformanceListAPI(restful.Resource):
     @marshal_with(final_performance_marshaller)
     def get(self):
         user_id = verify_auth()
-        performances = Performance.query.filter(Performance.users.any(id=user_id)).all()
+        performances = Performance.query.filter(
+            Performance.users.any(id=user_id)).all()
 
         return performances
 
@@ -66,8 +70,8 @@ class PerformanceListAPI(restful.Resource):
     def post(self):
         user_id = verify_auth()
         user = User.query.filter_by(id=user_id).first()
-        if user == None:
-            abort(404)
+        if user is None:
+            raise NotFound()
 
         data = request.get_json()
 
@@ -75,7 +79,8 @@ class PerformanceListAPI(restful.Resource):
         departure_time = datetime.datetime.utcnow()
         distance = data['distance']
 
-        performance = Performance(user, departure_station, departure_time, distance) 
+        performance = Performance(user, departure_station,
+                                  departure_time, distance)
 
         return performance
 
