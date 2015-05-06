@@ -44,14 +44,13 @@ def load_stations():
     if not apiKey:
         sys.exit("No API KEY defined. Did you create conf.env?")
 
+    url = API_URL.format(apiKey=apiKey)
     try:
-        data = json.load(
-            urllib2.urlopen(url=API_URL.format(apiKey=apiKey), timeout=10)
-            )
+        data = json.load(urllib2.urlopen(url=url, timeout=10))
     except (urllib2.URLError, urllib2.HTTPError):
         logging.error(traceback.format_exc())
         logging.error("Could not load velov stations JSON data.")
-        logging.error("URL : " + API_URL)
+        logging.error("URL : " + url)
         return
 
     if not len(data) > 0:
