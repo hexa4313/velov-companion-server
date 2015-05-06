@@ -1,5 +1,6 @@
 import os
 import logging
+from uwsgidecorators import postfork
 from flask import Flask
 from model.base import db
 from route.base import blueprint
@@ -24,3 +25,9 @@ with app.test_request_context():
     db.session.commit()
 
 app.register_blueprint(blueprint)
+
+
+@postfork
+def refresh_db():
+    db.session.remove()
+    db.init_app(app)
