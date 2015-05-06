@@ -1,4 +1,5 @@
 import os
+import traceback
 import sys
 import json
 import urllib2
@@ -48,8 +49,9 @@ def load_stations():
             urllib2.urlopen(url=API_URL.format(apiKey=apiKey), timeout=10)
             )
     except (urllib2.URLError, urllib2.HTTPError):
+        print traceback.format_exc()
         logging.error("Could not load velov stations JSON data.")
-        raise
+        return
 
     if not len(data) > 0:
         logging.error("0 stations loaded, maybe the data is corrupted?")
