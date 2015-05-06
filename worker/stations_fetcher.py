@@ -51,6 +51,7 @@ def load_stations():
     except (urllib2.URLError, urllib2.HTTPError):
         logging.error(traceback.format_exc())
         logging.error("Could not load velov stations JSON data.")
+        logging.error("URL : " + API_URL)
         return
 
     if not len(data) > 0:
