@@ -21,16 +21,3 @@ worker:
 
 routing:
   build: routing
-<<<<<<< HEAD
-=======
-
-proxy:
-  build: proxy
-  env_file: conf.env
-  links:
-   - api:flask
-   - routing:brouter
-  ports:
-   - "8080:80"
-   
->>>>>>> a8bed53145dec21ec4261a732720e7c8999f036e
