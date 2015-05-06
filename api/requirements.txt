@@ -5,3 +5,4 @@ Flask-SQLAlchemy
 GeoAlchemy2
 Shapely
 flask-bcrypt
+requests
